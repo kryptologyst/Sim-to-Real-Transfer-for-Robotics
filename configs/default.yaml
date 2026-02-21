@@ -1,0 +1,64 @@
+# Default configuration for sim-to-real transfer
+robot_type: "mobile_robot"
+render_mode: null  # "human", "rgb_array", or null
+
+# Domain randomization settings
+domain_randomization:
+  friction_range: [0.1, 0.8]
+  mass_range: [0.8, 1.2]
+  noise_level: 0.1
+  delay_range: [0.0, 0.1]
+  actuator_noise_range: [0.0, 0.05]
+  sensor_noise_range: [0.0, 0.02]
+  enable_visual_randomization: true
+  enable_dynamics_randomization: true
+  enable_sensor_randomization: true
+
+# Agent configuration
+agent:
+  algorithm: "PPO"  # PPO, SAC, TD3
+  learning_rate: 3e-4
+  batch_size: 64
+  buffer_size: 100000
+  gamma: 0.99
+  tau: 0.005
+  target_update_interval: 1
+  train_freq: 1
+  gradient_steps: 1
+  ent_coef: 0.0
+  clip_range: 0.2
+  n_epochs: 10
+  gae_lambda: 0.95
+  normalize_advantage: true
+  use_sde: false
+  sde_sample_freq: -1
+  use_sde_at_warmup: false
+
+# Environment settings
+environment:
+  max_episode_steps: 1000
+  control_frequency: 100  # Hz
+  max_velocity: 1.0
+  max_force: 100.0
+
+# Safety limits
+safety_limits:
+  max_velocity: 1.0
+  max_acceleration: 2.0
+  max_jerk: 5.0
+  max_force: 100.0
+  emergency_stop_threshold: 0.8
+
+# Training settings
+training:
+  total_timesteps: 100000
+  eval_freq: 10000
+  n_eval_episodes: 5
+  save_freq: 50000
+  log_freq: 1000
+
+# Evaluation settings
+evaluation:
+  n_eval_episodes: 100
+  deterministic: true
+  render: false
